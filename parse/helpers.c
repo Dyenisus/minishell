@@ -6,15 +6,37 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:22:02 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 13:44:13 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:44:32 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+// Checks if character is a space
 void	skip_spaces(const char *input, int *i)
 {
 	while (input[*i] && ft_isspace(input[*i]))
+		(*i)++;
+}
+
+// Skips until one of the characters in `delims` is found
+void	skip_until_chars(char *input, int *i, const char *delims)
+{
+	while (input[*i] && !ft_strchr(delims, input[*i]))
+		(*i)++;
+}
+
+// Stops when encountering a quote, $, space, or operator
+static int	is_stop_char(char c)
+{
+	return (c == '\'' || c == '"' || c == '$'
+		|| ft_isspace(c) || is_operator(c));
+}
+
+// Skips until !is_stop_char
+void	skip_until_specials(char *input, int *i)
+{
+	while (input[*i] && !is_stop_char(input[*i]))
 		(*i)++;
 }
 
@@ -32,17 +54,4 @@ char	*strjoin_and_free(char *s1, char *s2)
 	free(s1);
 	free(s2);
 	return (joined);
-}
-
-void	skip_till_quote_and_dolar(char *input, int *i)
-{
-	while (input[*i] && input[*i] != '"' && input[*i] != '$')
-		(*i)++;
-}
-
-void	skip_till_special(char *input, int *i)
-{
-	while (input[*i] && input[*i] != '\'' && input[*i] != '"' &&
-		input[*i] != '$' && !ft_isspace(input[*i]) && !is_operator(input[*i]))
-		(*i)++;
 }

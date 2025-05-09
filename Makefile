@@ -1,6 +1,6 @@
 NAME := minishell
 
-CC := gcc
+CC := cc
 CFLAGS := -Wall -Wextra -Werror
 CPPFLAGS := -Iincludes -I/opt/homebrew/opt/readline/include
 LDFLAGS := -L/opt/homebrew/opt/readline/lib -lreadline
@@ -11,10 +11,11 @@ MAIN_DIR := main
 PARSE_DIR := parse
 OBJ_DIR := obj
 LIBFT := libft/libft.a
+LIBFT_OBJ := libft/obj
 
 # Source files
 MAIN_SRCS := main.c
-PARSE_SRCS := parse.c token.c checks.c helpers.c lexer.c tokenizer.c
+PARSE_SRCS := parse.c token.c checks.c helpers.c lexer.c tokenizer.c extract.c helpers1.c
 
 # Add directory prefixes
 MAIN_SRCS := $(addprefix $(MAIN_DIR)/, $(MAIN_SRCS))
@@ -42,9 +43,11 @@ $(LIBFT):
 
 clean:
 	$(RM) $(OBJ_DIR)
+	$(RM) $(LIBFT_OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) $(LIBFT)
 
 re: fclean all
 

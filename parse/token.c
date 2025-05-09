@@ -6,13 +6,13 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:40:24 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 13:31:57 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/10 00:19:08 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Initialize token
+// Initializes token
 t_token	*init_token(void)
 {
 	t_token	*head;
@@ -26,7 +26,7 @@ t_token	*init_token(void)
 	return (head);
 }
 
-// Free token/tokens
+// Frees token/tokens
 void	free_token(t_token *head)
 {
 	t_token *temp;
@@ -43,7 +43,7 @@ void	free_token(t_token *head)
 	}
 }
 
-// Add token back
+// Adds token back
 void	add_token(t_token *head, t_token *new)
 {
 	t_token	*prev;
@@ -56,8 +56,8 @@ void	add_token(t_token *head, t_token *new)
 	prev->next = new;
 }
 
-// Init and assign token
-t_token	*assign_token_value(char *value)
+// Initializes and assigns token
+t_token	*assign_token(char *value, bool *quoted)
 {
 	t_token	*new;
 
@@ -70,18 +70,16 @@ t_token	*assign_token_value(char *value)
 		return (NULL);
 	}
 	new->value = value;
+	new->quoted = (*quoted);
 	return (new);
 }
 
-// Print tokens (not neccesary)
-void	print_tokens(t_token *head)
+// Prints tokens (not neccesary)
+void	print_tokens(t_token *tokens)
 {
-	t_token	*temp;
-
-	temp = head;
-	while (temp)
+	while (tokens)
 	{
-		printf("%s\n", temp->value);
-		temp = temp->next;
+		printf("TOKEN: %-10s  TYPE: %d\n", tokens->value, tokens->type);
+		tokens = tokens->next;
 	}
 }

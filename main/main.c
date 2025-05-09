@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:38:00 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 13:31:33 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:51:34 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(int argc, char **argv)
 		}
 		add_history(input);
 		// parse
-		// if parse return NULL free input then exit main
-		head = tokenize(input);
+		// if parse return NULL free input then exit main maybe dont need to exit
+		head = parse(input);
 		print_tokens(head);
 		// execute
 	}

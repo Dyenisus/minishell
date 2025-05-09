@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 14:13:48 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/10 00:34:35 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <stdbool.h>
 # include "libft/libft.h"
 
 extern int	g_exit_status;
@@ -38,6 +39,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
+	bool			quoted;
 	struct s_token	*next;
 }	t_token;
 
@@ -49,25 +51,30 @@ typedef struct s_token
 t_token	*init_token(void);
 void	free_token(t_token *head);
 void	add_token(t_token *head, t_token *new);
-t_token	*assign_token_value(char *value);
+t_token	*assign_token(char *value, bool *quoted);
 void	print_tokens(t_token *head);
 
 // parse functions
 
 int		ft_isspace(char c);
+int		ft_iseq(const char *a, const char *b);
 void	skip_spaces(const char *input, int *i);
-void	skip_till_quote_and_dolar(char *input, int *i);
-void	skip_till_special(char *input, int *i);
+void	skip_until_chars(char *input, int *i, const char *delims);
+void	skip_until_specials(char *input, int *i);
 int		is_operator(char c);
-int		is_valid_word_start(char c);
+int		is_valid_word_token(const char *str);
 char	*strjoin_and_free(char *s1, char *s2);
-char	*extract_single_quote(char *input, int *i, int start);
+char	*extract_single_quote(char *input, int *i, int start, bool *quoted);
 char	*extract_expansion(char *input, int *i, int start);
-char	*extract_double_quote(char *input, int *i, int start);
+char	*extract_double_quote(char *input, int *i, int start, bool *quoted);
+char	*extract_double_inner(char *input, int *i, int start);
 char	*extract_word(char *input, int *i, int start);
-t_token	*tokenize_word(char *input, int *i);
-
+t_token	*extract_token(char *input, int *i);
+t_token	*tokenize_word(char *input, int *i, bool *quoted);
+t_token	*tokenize_operator(char *input, int *i);
 t_token	*tokenize(char *input);
+int		lexer(t_token *tokens);
+t_token	*parse(char *input);
 
 #endif
 
