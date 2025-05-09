@@ -6,43 +6,50 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:39:38 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/07 22:04:12 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:04:29 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Parent Process for parsing
-t_token	*parse(char *input)
-{
-	t_token	*head;
+// t_token	*lex(t_token *head)
+// {
+// 	;
+// }
 
-	head = init_token();
-	if (!head)
-		return (NULL);
-	// tokenize
-	// lex
+// Extract token
+t_token	*extract_token(char *input, int *i)
+{
+	// if (is_operator(input[*i]))
+	// 	return (tokenize_operator(input, i, 0));
+	return (tokenize_word(input, i));
 }
 
-t_token	*tokenize(char *input, t_token *head)
+t_token	*tokenize(char *input)
 {
 	int		i;
+	t_token	*head;
+	t_token	*new;
 
+	head = NULL;
 	i = 0;
 	while (input[i])
 	{
 		skip_spaces(input, &i);
-		if (input[i] == '\'')
-			;// tokenize for single quote
-		else if (input[i] == '"')
-			;// tokenize for double quote
-		else if (is_operator(input[i]))
-			;// tokenize for operator
-		else if (input[i] == '$')
-			;// tokenize for $
+		if (!input[i])
+			break ;
+		new = extract_token(input, &i);
+		if (!new)
+		{
+			free_token(head);
+			return (NULL);
+		}
+		if (!head)
+			head = new;
 		else
-			;// tokenize for word
+			add_token(head, new);
 	}
+	return (head);
 }
 
 // function tokenize(input: char *) -> t_token *:
@@ -73,3 +80,14 @@ t_token	*tokenize(char *input, t_token *head)
 //         append_token(&tokens, token)
 
 //     return tokens
+
+
+
+
+// Parent Process for parsing
+// t_token	*parse(char *input)
+// {
+// 	// tokenize
+// 	// if tokenize returns NULL return NULL
+// 	// lex
+// }
