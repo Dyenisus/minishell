@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:03:40 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 00:36:01 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:47:52 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 // Gets tokens type based on the value
 static t_token_type	get_token_type(const char *str)
 {
-	if (ft_iseq(str, "|"))
+	if (ft_iseq(str, "|") && ft_strlen(str) == 1)
 		return (T_PIPE);
-	else if (ft_iseq(str, "<<"))
+	else if (ft_iseq(str, "<<") && ft_strlen(str) == 2)
 		return (T_HEREDOC);
-	else if (ft_iseq(str, ">>"))
+	else if (ft_iseq(str, ">>") && ft_strlen(str) == 2)
 		return (T_APPEND);
-	else if (ft_iseq(str, "<"))
+	else if (ft_iseq(str, "<") && ft_strlen(str) == 1)
 		return (T_REDIRECT_IN);
-	else if (ft_iseq(str, ">"))
+	else if (ft_iseq(str, ">") && ft_strlen(str) == 1)
 		return (T_REDIRECT_OUT);
 	else if (is_valid_word_token(str))
 		return (T_WORD);

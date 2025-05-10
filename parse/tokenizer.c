@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:03:32 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 00:57:10 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:56:44 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,21 @@ t_token	*tokenize_word(char *input, int *i, bool *quoted)
 // Tokenizes operator has a segfault that I can't seem to find it yet
 t_token	*tokenize_operator(char *input, int *i)
 {
+	int		start;
 	char	*op;
+	bool	quoted;
 
-	if ((input[*i] == '>' && input[*i + 1] == '>') ||
-		(input[*i] == '<' && input[*i + 1] == '<'))
-	{
-		op = ft_substr(input, *i, 2);
-		*i += 2;
-	}
-	else
-	{
-		op = ft_substr(input, *i, 1);
+	quoted = false; 
+	start = *i;
+	while (input[*i] && is_operator(input[*i]) && !ft_isspace(input[*i]))
 		(*i)++;
-	}
+	op = ft_substr(input, start, *i - start);
 	if (!op)
 	{
 		printf("tokenizer error: operator can not be extracted\n");
 		return (NULL);
 	}
-	return (assign_token(op, false));
+	return (assign_token(op, &quoted));
 }
 
 t_token	*tokenize(char *input)
