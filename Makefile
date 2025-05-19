@@ -15,7 +15,7 @@ LIBFT_OBJ := libft/obj
 
 # Source files
 MAIN_SRCS := main.c
-PARSE_SRCS := parse.c token.c checks.c helpers.c lexer.c tokenizer.c extract.c helpers1.c
+PARSE_SRCS := parse.c token.c checks.c helpers.c lexer.c tokenizer.c extract.c helpers1.c cmd.c convert.c assign_cmd.c
 
 # Add directory prefixes
 MAIN_SRCS := $(addprefix $(MAIN_DIR)/, $(MAIN_SRCS))

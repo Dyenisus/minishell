@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:38:00 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 23:51:34 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:18:12 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	sigint_handler(int sig);
 int	main(int argc, char **argv)
 {
 	char 	*input;
-	t_token	*head;
+	t_cmd	*head;
 
 	(void)argc;
 	(void)argv;
@@ -39,10 +39,8 @@ int	main(int argc, char **argv)
 			continue ;
 		}
 		add_history(input);
-		// parse
-		// if parse return NULL free input then exit main maybe dont need to exit
 		head = parse(input);
-		print_tokens(head);
+		print_cmds(head);
 		// execute
 	}
 	free(head);

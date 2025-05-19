@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"minishell.h": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"unistd.h": "c"
 	},
 	"makefile.configureOnOpen": false
 }

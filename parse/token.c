@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:40:24 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 19:55:09 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:17:35 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_token	*assign_token(char *value, bool *quoted)
 	return (new);
 }
 
-// Prints tokens (not neccesary)
+// Prints tokens for debugging
 void	print_tokens(t_token *tokens)
 {
 	while (tokens)

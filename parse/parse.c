@@ -6,27 +6,38 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:39:38 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 19:51:37 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:15:39 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // Parent Process for parsing
-t_token	*parse(char *input)
+t_cmd	*parse(char *input)
 {
-	t_token	*head;
+	t_token	*token_head;
+	t_cmd	*cmd_head;
 
-	head = tokenize(input);
-	if (!head)
+	token_head = tokenizer(input);
+	if (!token_head)
 	{
-		printf("tokenize error: input can not be tokenized\n");
+		printf("tokenize error: failed to tokenize input\n");
 		return (NULL);
 	}
-	if (!lexer(head))
+	if (!lexer(token_head))
 	{
-		free_token(head);
+		printf("lex error: failed to lex tokens\n");
+		free_token(token_head);
 		return (NULL);
 	}
-	return (head);
+	print_tokens(token_head); //
+	cmd_head = converter(token_head);
+	if (!cmd_head)
+	{
+		printf("convert error: failed to convert tokens\n");
+		free_token(token_head);
+		return (NULL);
+	}
+	free_token(token_head);
+	return (cmd_head);
 }

@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:03:32 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 19:56:44 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/19 22:06:38 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_token	*tokenize_word(char *input, int *i, bool *quoted)
 	return (assign_token(joined, quoted));
 }
 
-// Tokenizes operator has a segfault that I can't seem to find it yet
+// Tokenizes operator
 t_token	*tokenize_operator(char *input, int *i)
 {
 	int		start;
@@ -59,7 +59,8 @@ t_token	*tokenize_operator(char *input, int *i)
 	return (assign_token(op, &quoted));
 }
 
-t_token	*tokenize(char *input)
+// Main tokenizer function
+t_token	*tokenizer(char *input)
 {
 	int		i;
 	t_token	*head;
