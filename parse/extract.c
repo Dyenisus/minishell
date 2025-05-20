@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 22:23:24 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/10 19:53:27 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:23:48 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ char	*extract_expansion(char *input, int *i, int start)
 		(*i)++;
 		return (ft_itoa(g_exit_status));
 	}
+	if (!input[*i]) // Case: end of input after $
+		return (ft_strdup("$"));
+	if (input[*i] == '$') // Case: double dollar sign
+		return (ft_strdup("$"));
+	if (!ft_isalpha(input[*i]) && input[*i] != '_') // Case: invalid start
+		return (ft_strdup("$"));
 	start = *i;
 	while (input[*i] && (ft_isalnum(input[*i]) || input[*i] == '_'))
 		(*i)++;
-	if (*i == start)
-		return (ft_strdup("$"));
 	name = ft_substr(input, start, *i - start);
 	value = getenv(name);
 	free(name);
 	if (!value)
-	{
-		// check if this error message is ok
-		printf("environment error: invalid environment variable name");
 		return (ft_strdup(""));
-	}
 	return (ft_strdup(value));
 }
 

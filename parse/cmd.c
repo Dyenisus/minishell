@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 21:05:32 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:20:12 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:50:16 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_cmds(t_cmd *cmd)
 
 	while (cmd)
 	{
+		printf("----\n");
 		if (cmd->cmd)
 			printf("cmd: %s\n", cmd->cmd);
 		if (cmd->args)

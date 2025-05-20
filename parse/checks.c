@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:04:02 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:10:25 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/20 16:19:43 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int	is_valid_word_token(const char *str)
 	{
 		if (!ft_isprint(str[i]))
 			return (0);
-		if (ft_isspace(str[i]) || is_operator(str[i]) || str[i] == '$'
-			|| str[i] == '"' || str[i] == '\''
-			|| str[i] == ';' || str[i] == '\\')
+		if (ft_isspace(str[i]) || is_operator(str[i]) || str[i] == ';')
 			return (0);
 		i++;
 	}

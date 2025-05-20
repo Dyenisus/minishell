@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:54:55 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:30:36 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:45:53 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,19 @@ t_cmd	*ft_add_args(t_cmd *new, t_token *token)
 	return (new);	
 }
 
-// Adds command to cmd and checks for already existing commands
+// Adds command to cmd/arg and checks for already existing commands
 t_cmd	*ft_add_cmd(t_cmd *new, t_token *token)
 {
-	if (new->cmd)
-		return (ft_add_args(new, token));
-	new->cmd = ft_strdup(token->value);
 	if (!new->cmd)
 	{
-		printf("Command duplication failed\n");
-		return (NULL);
+		new->cmd = ft_strdup(token->value);
+		if (!new->cmd)
+		{
+			printf("Command duplication failed\n");
+			return (NULL);
+		}
 	}
-	return (new);
+	return (ft_add_args(new, token));
 }
 
 // Adds next token->value to infile and it checks access too

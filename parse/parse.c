@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:39:38 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:15:39 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/20 15:46:59 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ t_cmd	*parse(char *input)
 	}
 	print_tokens(token_head); //
 	cmd_head = converter(token_head);
+	free_token(token_head);
 	if (!cmd_head)
 	{
 		printf("convert error: failed to convert tokens\n");
-		free_token(token_head);
 		return (NULL);
 	}
-	free_token(token_head);
 	return (cmd_head);
 }
