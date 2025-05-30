@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:22:02 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/09 22:44:32 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:54:24 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*strjoin_and_free(char *s1, char *s2)
 	char	*joined;
 
 	if (!s1 && !s2)
-		return (NULL);
+		return (ft_strdup(""));
 	else if (!s1)
 		return (ft_strdup(s2));
 	else if (!s2)
