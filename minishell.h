@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: yesoytur <yesoyturstudent.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:30:53 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:40:35 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "libft/libft.h"
 
 extern int	g_exit_status;
@@ -47,9 +48,10 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	char			**args;
-	char			*infile;
-	char			*outfile;
-	bool			append;
+	char			**infile;
+	char			**outfile;
+	bool			*append;
+	int				out_count;
 	char			*heredoc_delim;
 	struct s_cmd	*next;
 }	t_cmd;

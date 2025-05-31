@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: yesoytur <yesoyturstudent.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:59:48 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:31:23 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:23:18 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

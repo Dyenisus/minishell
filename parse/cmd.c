@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: yesoytur <yesoyturstudent.42istanbul.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 21:05:32 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/20 15:50:16 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:41:30 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	free_cmd(t_cmd *head)
 		if (current->cmd)
 			free(current->cmd);
 		if (current->infile)
-			free(current->infile);
+			free_double(current->infile);
 		if (current->outfile)
-			free(current->outfile);
+			free_double(current->outfile);
 		if (current->heredoc_delim)
 			free(current->heredoc_delim);
 		if (current->args)
@@ -46,11 +46,11 @@ t_cmd	*init_cmd(void)
 	if (!new)
 		return (NULL);
 	new->args = ft_calloc(MAX_INPUT, sizeof(char *));
-	if (!(new->args))
-	{
-		free(new);
-		return (NULL);
-	}
+	new->infile = ft_calloc(MAX_INPUT, sizeof(char *));
+	new->outfile = ft_calloc(MAX_INPUT, sizeof(char *));
+	new->append = ft_calloc(MAX_INPUT, sizeof(bool));
+	if (!(new->args) || !(new->infile) || !(new->outfile) || !(new->append))
+		return (free_cmd(new), NULL);
 	return (new);
 }
 
@@ -87,13 +87,32 @@ void	print_cmds(t_cmd *cmd)
 			}
 		}
 		if (cmd->infile)
-			printf("infile: %s\n", cmd->infile);
+		{
+			i = 0;
+			while (cmd->infile[i])
+			{
+				printf("infile[%d]: %s\n", i, cmd->infile[i]);
+				i++;
+			}
+		}
 		if (cmd->outfile)
-			printf("outfile: %s\n", cmd->outfile);
+		{
+			i = 0;
+			while (cmd->outfile[i])
+			{
+				printf("outfile[%d]: %s\n", i, cmd->outfile[i]);
+				i++;
+			}
+		}
 		if (cmd->append)
-			printf("append: true\n");
-		else if (cmd->outfile)
-			printf("append: false\n");
+		{
+			i = 0;
+			while (i < cmd->out_count)
+			{
+				printf("append[%d]: %d\n", i, cmd->append[i]);
+				i++;
+			}
+		}
 		if (cmd->heredoc_delim)
 			printf("heredoc_delim: %s\n", cmd->heredoc_delim);
 		printf("----\n");
