@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/19 13:32:01 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:54:56 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ int		is_valid_word_token(const char *str);
 int		is_valid_cmd(const char *cmd);
 char	*strjoin_and_free(char *s1, char *s2);
 char	*extract_single_quote(char *input, int *i, int start, bool *quoted);
-char	*extract_expansion(char *input, int *i, int start);
+char	*extract_expansion(char *input, int *i, int start, int mode);
+char	*dollar_expansion(char *input, int *i, int start);
+char	*dollar_expansion_inner(char *input, int *i, int start);
+char	*tilde_expansion(char *input, int *i, int start);
 char	*extract_double_quote(char *input, int *i, int start, bool *quoted);
 char	*extract_double_inner(char *input, int *i, int start);
 char	*extract_word(char *input, int *i, int start);
