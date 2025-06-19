@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/19 13:02:13 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:32:01 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	bool			*append;
-	int 			out_count;
-	char			*heredoc_delim;
+	int 			out_count; // this can go when we have done printing cmds
+	char			**heredoc_delim;
 	struct s_cmd	*next;
 }	t_cmd;
 
