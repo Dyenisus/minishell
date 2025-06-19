@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoyturstudent.42istanbul.co    +#+  +:+       +#+        */
+/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/31 18:40:35 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/19 13:02:13 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <limits.h>
 # include "libft/libft.h"
 
 extern int	g_exit_status;
@@ -51,7 +50,7 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	bool			*append;
-	int				out_count;
+	int 			out_count;
 	char			*heredoc_delim;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -103,6 +102,67 @@ t_cmd	*ft_add_outfile(t_cmd *new, t_token **token, bool append);
 t_cmd	*ft_add_heredoc(t_cmd *new, t_token **token);
 t_cmd	*converter(t_token *token);
 t_cmd	*parse(char *input);
+
+// execute 
+
+#include <fcntl.h>
+#include <dirent.h>   // opendir, readdir, closedir
+#include <sys/stat.h> // stat
+#include <sys/wait.h>
+
+typedef struct s_shell
+{
+    char **temp;
+    char *read;
+    char **main_env;
+    int exit_status;
+    struct s_stack	**env;
+    struct s_stack	**env_exp;
+    struct s_cmd	*cmd;
+}              t_shell;
+typedef struct s_stack
+{
+    char            *var;
+	char            *value;
+    char             equals;
+    char            nail;
+	struct s_stack	*next;
+}					t_stack;
+
+void shell_init(t_shell *shell , char **env);
+void start_exe(t_shell *shell);
+// builtin
+void builtin(t_shell *shell, t_cmd *cmd);
+int ft_n(char *str);
+void    cmd_cd(t_cmd *cmd);
+void cmd_env(t_stack **env);
+void cmd_export(char **temp, t_stack **env, t_stack **env_exp, int i);
+void cmd_unset(t_stack **env, t_stack **env_exp, char **temp);
+void cmd_exit(t_shell *shell, char **str);
+
+// komut çalıştırma 
+void	ft_execute(char **commands, char **ep);
+
+// //
+// char	*ft_get_cmd(char *cmd, char **ep);
+// char	*ft_get_path(char **ep);
+// int	ft_access(char *exec, char **opt, char **path);
+
+
+// ortak yardımcı
+void	clear_array(char **array);
+int		sizeof_array(char **av);
+int		ft_strcmp(char *s1, char *s2);
+void	sort_env_list(t_stack *head);
+void	swap_nodes(t_stack *a, t_stack *b);
+t_stack	**create_stack(t_stack **list , char **enveironment);
+t_stack	*sk_lstnew(char *var , char *value);
+void	sk_lstclear(t_stack **lst);
+int		sk_lstsize(t_cmd *lst);
+void	sk_lstadd_back(t_stack **lst, t_stack *new);
+char	**split_once(const char *str, int i);
+int		ft_isname(int c);
+char    **copy_array(char **env);
 
 #endif
 

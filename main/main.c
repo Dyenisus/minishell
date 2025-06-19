@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:38:00 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:18:12 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:50:09 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,42 @@ int	g_exit_status = 0;
 
 void	sigint_handler(int sig);
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **enveiroment)
 {
-	char 	*input;
 	t_cmd	*head;
 
 	(void)argc;
 	(void)argv;
 	signal(SIGINT, sigint_handler); // for ctrl + c (prints newline)
 	signal(SIGQUIT, SIG_IGN); // for ctrl + / (does nothing)
+	t_shell *shell;
+	
+    shell = ft_calloc(1 , sizeof(t_shell));
+    if(!shell)
+		exit(0);
+	shell_init(shell, enveiroment);
 	while (1)
 	{
-		input = readline("minishell> ");
-		if (!input) // for ctrl + d (prints exit\n and quits)
+		shell->read = readline("minishell> ");
+		if (!shell->read) // for ctrl + d (prints exit\n and quits)
 		{
 			printf("exit\n");
 			break ;
 		}
-		if (!(*input)) // for Enter (reads again)
+		if (!(*shell->read)) // for Enter (reads again)
 		{
-			free(input);
+			free(shell->read);
 			continue ;
 		}
-		add_history(input);
-		head = parse(input);
+		add_history(shell->read);
+		head = parse(shell->read);
+		shell->cmd = head;
 		print_cmds(head);
 		// execute
+		start_exe(shell);
+		free(shell->read);
 	}
 	free(head);
-	free(input);
 	return (0);
 }
 

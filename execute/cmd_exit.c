@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
+/*   cmd_exit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 13:00:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/28 19:35:37 by skaynar          ###   ########.fr       */
+/*   Created: 2025/05/12 12:53:52 by skaynar           #+#    #+#             */
+/*   Updated: 2025/06/17 17:37:35 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../minishell.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void cmd_exit(t_shell *shell, char **str)
 {
-	if (!lst)
-		return (NULL);
-	while (lst && (lst -> next))
-		lst = lst -> next;
-	return (lst);
+    if(sizeof_array(str) > 2)
+    {
+        shell->exit_status = 0;
+        exit(shell->exit_status);
+    }
+    else
+    {
+        shell->exit_status = ft_atoi(str[1]);
+        exit(shell->exit_status);
+    }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoyturstudent.42istanbul.co    +#+  +:+       +#+        */
+/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:54:55 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/31 18:39:58 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:58:21 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
