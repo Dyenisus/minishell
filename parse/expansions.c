@@ -6,36 +6,53 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 14:12:53 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/19 21:08:37 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/20 14:31:11 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Extracts dollar expansion may need valid expansion checker
+// Extract dollars inner part 
 char	*dollar_expansion(char *input, int *i, int start)
 {
-	(*i)++;
-	if (!input[*i]) // Case: end of input after $
-		return (ft_strdup("$"));
-	if (input[*i] == '?')
-	{
+	char	*name;
+	char	*value;
+
+	start = *i;
+	while (input[*i] && (ft_isalnum(input[*i]) || input[*i] == '_'))
 		(*i)++;
-		return (ft_itoa(g_exit_status));
-	}
-	if (input[*i] == '$') // Case: double dollar sign
-	{
-		(*i)++;
-		return (ft_strdup("$"));
-	}
-	if (!ft_isalpha(input[*i]) && input[*i] != '_') // Case: invalid start
-		return (ft_strdup("$"));
-	else
-		return(dollar_expansion_inner(input, i, start));
+	name = ft_substr(input, start, *i - start);
+	value = getenv(name);
+	free(name);
+	if (!value)
+		return (ft_strdup(""));
+	return (ft_strdup(value));
 }
 
-// Extracts tilde expansion
-char	*tilde_expansion(char *input, int *i, int start)
+// Extract dollar expansions may need valid expansion checker
+char	*extract_dollar(char *input, int *i, int start)
+{
+	char	c;
+
+	(*i)++;
+	if (!input[*i])
+		return (ft_strdup("$"));
+	c = input[*i];
+	if (c == '0')
+		return ((*i)++, ft_strdup("bash"));
+	if (c == '-')
+		return ((*i)++, ft_strdup("himBH"));
+	if (c == '?')
+		return ((*i)++, ft_itoa(g_exit_status));
+	if (c == '#')
+		return ((*i)++, ft_strdup("0"));
+	if (ft_isalnum(c) && c != '_')
+		return ((*i)++, ft_strdup(""));
+	return (dollar_expansion(input, i, start));
+}
+
+// Extract tilde expansions
+char	*extract_tilde(char *input, int *i, int start)
 {
 	char	*path;
 	char	*home;
