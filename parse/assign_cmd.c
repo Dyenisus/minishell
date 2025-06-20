@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 20:54:55 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/19 18:31:23 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:50:29 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,6 @@ t_cmd	*ft_add_heredoc(t_cmd *new, t_token **token)
 	if (!(*token)->next)
 	{
 		printf("No delimiter after heredoc\n");
-		return (NULL);
-	}
-	if ((*token)->type == T_HEREDOC && (*token)->next->type != T_WORD)
-	{
-		perror("minishell: syntax error near unexpected token");
 		return (NULL);
 	}
 	*token = (*token)->next;
