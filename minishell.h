@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/20 14:24:38 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/26 01:01:23 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_shell
     struct s_stack	**env_exp;
     struct s_cmd	*cmd;
 }              t_shell;
+
 typedef struct s_stack
 {
     char            *var;
@@ -132,7 +133,7 @@ typedef struct s_stack
 }					t_stack;
 
 void shell_init(t_shell *shell , char **env);
-void start_exe(t_shell *shell);
+void start_exe(t_shell *shell, int prev_fd);
 // builtin
 void builtin(t_shell *shell, t_cmd *cmd);
 int ft_n(char *str);
@@ -144,12 +145,7 @@ void cmd_exit(t_shell *shell, char **str);
 
 // komut çalıştırma 
 void	ft_execute(char **commands, char **ep);
-
-// //
-// char	*ft_get_cmd(char *cmd, char **ep);
-// char	*ft_get_path(char **ep);
-// int	ft_access(char *exec, char **opt, char **path);
-
+void ft_heredoc(t_cmd *fakecmd, int i, int fd);
 
 // ortak yardımcı
 void	clear_array(char **array);
