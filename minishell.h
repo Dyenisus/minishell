@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/26 01:01:23 by skaynar          ###   ########.fr       */
+/*   Updated: 2025/06/26 21:31:24 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	print_cmds(t_cmd *cmd);
 int		ft_isspace(char c);
 int		ft_iseq(const char *a, const char *b);
 void	free_double(char **args);
+void	print_file_error(char *file_name);
+void	print_syntax_error(char *token, int mod);
 void	skip_spaces(const char *input, int *i);
 void	skip_until_chars(char *input, int *i, const char *delims);
 void	skip_until_specials(char *input, int *i);
