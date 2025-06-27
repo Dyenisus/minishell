@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:03:40 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/26 21:36:57 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/27 17:01:24 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	last_error_message(t_token *curr)
 {
 	if (curr->type == T_PIPE)
 		print_syntax_error("|", 2);
+	else if (curr->type == T_HEREDOC)
+		print_syntax_error("<<", 2);
 	else
 		print_syntax_error("newline", 2);
 }
@@ -27,7 +29,7 @@ static int	type_order_check(t_token *head)
 
 	if (!head)
 		return (1);
-	if (head->type != T_WORD)
+	if (head->type != T_WORD && head->type != T_HEREDOC)
 	{
 		print_syntax_error(head->value, 2);
 		return (0);
