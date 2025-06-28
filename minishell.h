@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/26 21:31:24 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:17:29 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	bool			*append;
-	int 			out_count; // this can go when we have done printing cmds
+	//int 			out_count; // this can go when we have done printing cmds
 	char			**heredoc_delim;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -64,14 +64,14 @@ t_token	*init_token(void);
 void	free_token(t_token *head);
 void	add_token(t_token *head, t_token *new);
 t_token	*assign_token(char *value, bool *quoted);
-void	print_tokens(t_token *head);
+//void	print_tokens(t_token *head);
 
 // cmd functions
 
 void	free_cmd(t_cmd *head);
 t_cmd	*init_cmd(void);
 void	add_cmd(t_cmd *head, t_cmd *new);
-void	print_cmds(t_cmd *cmd);
+//void	print_cmds(t_cmd *cmd);
 
 // parse functions
 

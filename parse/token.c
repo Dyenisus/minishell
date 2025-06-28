@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:40:24 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/05/19 22:17:35 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/06/28 22:18:56 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ t_token	*assign_token(char *value, bool *quoted)
 }
 
 // Prints tokens for debugging
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		printf("TOKEN: %-10s  TYPE: %d\n", tokens->value, tokens->type);
-		tokens = tokens->next;
-	}
-}
+// void	print_tokens(t_token *tokens)
+// {
+// 	while (tokens)
+// 	{
+// 		printf("TOKEN: %-10s  TYPE: %d\n", tokens->value, tokens->type);
+// 		tokens = tokens->next;
+// 	}
+// }
