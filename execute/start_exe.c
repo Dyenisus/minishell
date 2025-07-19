@@ -6,7 +6,7 @@
 /*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/31 19:33:21 by skaynar           #+#    #+#             */
-/*   Updated: 2025/06/26 01:01:12 by skaynar          ###   ########.fr       */
+/*   Updated: 2025/07/08 19:53:37 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,29 +77,30 @@ void only_command(t_cmd *fakecmd, t_shell *shell)
         cmd_unset(shell->env, shell->env_exp, fakecmd->args);
     else
         cmd_cd(fakecmd);
+
 }
 
-void ft_parent(t_cmd *fakecmd, int prev_fd, int *fd, pid_t pid)
+void ft_parent(t_cmd *fakecmd, int *prev_fd, int *fd, pid_t pid)
 {
     int status;
     
-    if (prev_fd != -1)
-        close(prev_fd);
+    if (*prev_fd != -1)
+        close(*prev_fd);
     if (fakecmd->next)
     {
         close(fd[1]);
-        prev_fd = fd[0];
+        *prev_fd = fd[0];
     }
     waitpid(pid, &status, 0);
 }
 
-void ft_child(t_shell *shell, t_cmd *fakecmd, int prev_fd , int *fd)
+void ft_child(t_shell *shell, t_cmd *fakecmd, int *prev_fd , int *fd)
 {
     take_infile(fakecmd);
-    if (prev_fd != -1)
+    if (*prev_fd != -1)
     {
-        dup2(prev_fd, 0);   // önceki pipe'ın çıkışı -> stdin
-        close(prev_fd);
+        dup2(*prev_fd, 0);   // önceki pipe'ın çıkışı -> stdin
+        close(*prev_fd);
     }
     if (fakecmd->next)
     {
@@ -111,7 +112,9 @@ void ft_child(t_shell *shell, t_cmd *fakecmd, int prev_fd , int *fd)
     if (is_valid_cmd(fakecmd->args[0]))
         builtin(shell, fakecmd);
     else
-        ft_execute(fakecmd->args, shell->main_env);
+        ft_execute(fakecmd->args, shell->main_env, shell);
+    free_cmd_list(shell->cmd);
+    free_shell(shell);
     exit(EXIT_SUCCESS);
 }
 
@@ -121,7 +124,7 @@ void start_exe(t_shell *shell, int prev_fd)
     int		fd[2];
     pid_t	pid;
 
-    fakecmd = shell->cmd;
+    fakecmd = shell->cmd;    
     if(sk_lstsize(shell->cmd) == 1 && ((ft_strcmp(fakecmd->args[0], "cd") == 0) 
         || (ft_strcmp(fakecmd->args[0], "export") == 0)
         || (ft_strcmp(fakecmd->args[0], "unset") == 0)))
@@ -142,9 +145,9 @@ void start_exe(t_shell *shell, int prev_fd)
                 exit(EXIT_FAILURE);
             }
             if (pid == 0)
-                ft_child(shell,fakecmd,prev_fd,fd);
+                ft_child(shell,fakecmd,&prev_fd,fd);
             else
-                ft_parent(fakecmd,prev_fd,fd,pid);
+                ft_parent(fakecmd,&prev_fd,fd,pid);
             fakecmd = fakecmd->next;
         }
     }  

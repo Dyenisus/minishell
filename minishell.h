@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:34:54 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/28 22:17:29 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/07/19 16:05:04 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_cmd
 	char			**infile;
 	char			**outfile;
 	bool			*append;
-	//int 			out_count; // this can go when we have done printing cmds
 	char			**heredoc_delim;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -64,14 +63,12 @@ t_token	*init_token(void);
 void	free_token(t_token *head);
 void	add_token(t_token *head, t_token *new);
 t_token	*assign_token(char *value, bool *quoted);
-//void	print_tokens(t_token *head);
 
 // cmd functions
 
 void	free_cmd(t_cmd *head);
 t_cmd	*init_cmd(void);
 void	add_cmd(t_cmd *head, t_cmd *new);
-//void	print_cmds(t_cmd *cmd);
 
 // parse functions
 
@@ -146,27 +143,25 @@ void cmd_unset(t_stack **env, t_stack **env_exp, char **temp);
 void cmd_exit(t_shell *shell, char **str);
 
 // komut çalıştırma 
-void	ft_execute(char **commands, char **ep);
+void	ft_execute(char **commands, char **ep, t_shell *shell);
 void ft_heredoc(t_cmd *fakecmd, int i, int fd);
 
 // ortak yardımcı
-void	clear_array(char **array);
 int		sizeof_array(char **av);
 int		ft_strcmp(char *s1, char *s2);
 void	sort_env_list(t_stack *head);
 void	swap_nodes(t_stack *a, t_stack *b);
-t_stack	**create_stack(t_stack **list , char **enveironment);
+void create_stack(t_shell *shell , char **enveironment);
 t_stack	*sk_lstnew(char *var , char *value);
-void	sk_lstclear(t_stack **lst);
 int		sk_lstsize(t_cmd *lst);
 void	sk_lstadd_back(t_stack **lst, t_stack *new);
 char	**split_once(const char *str, int i);
 int		ft_isname(int c);
 char    **copy_array(char **env);
 
-#endif
+void free_shell(t_shell *shell);
+void	clear_array(char **array);
+void	sk_lstclear(t_stack **lst);
+void free_cmd_list(t_cmd *cmd);
 
-// extractor functions will be divided
-// skip functions may need some clenup
-// double quote function needs some improvements
-// when all of this is done tokenize_oprator() is needed
+#endif

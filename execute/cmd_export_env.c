@@ -6,7 +6,7 @@
 /*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:14:40 by skaynar           #+#    #+#             */
-/*   Updated: 2025/06/17 17:45:19 by skaynar          ###   ########.fr       */
+/*   Updated: 2025/07/09 00:49:26 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void cmd_env(t_stack **env)
 	temp = *env;
 	while(temp)
 	{
-		printf("%s%c%s\n", temp->var, temp->equals, temp->value);
+		if (temp->value)
+			printf("%s%c%s\n", temp->var, temp->equals, temp->value);
+		else
+			printf("%s\n", temp->var);
 		temp = temp->next;
 	}
 }
@@ -66,22 +69,19 @@ void add_export(t_stack **env_exp, t_stack **env, char *temp)
     char **str;
     
     str = split_once(temp, 0);
-
     if(!is_there_same(env_exp, str))
     {
-        if(str[1] && str[1][0] != 0)
+        if(str[1])
             sk_lstadd_back(env_exp, sk_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
         else
-        {
-            sk_lstadd_back(env_exp, sk_lstnew(ft_strdup(str[0]), "")); 
-        }
+            sk_lstadd_back(env_exp, sk_lstnew(ft_strdup(str[0]), NULL)); 
     }
     if (!is_there_same(env, str))
     {
-        if(str[1] && str[1][0] != '\0')
+        if(str[1])
             sk_lstadd_back(env, sk_lstnew(ft_strdup(str[0]), ft_strdup(str[1])));
         else
-            sk_lstadd_back(env, sk_lstnew(ft_strdup(str[0]), ""));
+            sk_lstadd_back(env, sk_lstnew(ft_strdup(str[0]), NULL));
     }
     clear_array(str);
     sort_env_list((*env_exp));
@@ -90,15 +90,18 @@ void add_export(t_stack **env_exp, t_stack **env, char *temp)
 void cmd_export(char **temp, t_stack **env, t_stack **env_exp, int i)
 {
     if(!temp[1])
-    {
+    {  
+        t_stack *tmp;
         sort_env_list((*env_exp));
-        t_stack *temp;
-	    temp = *env_exp;
-	    while(temp)
+	    tmp = *env_exp;
+	    while(tmp)
 	    {
-	    	printf("declare -x %s%c%c%s%c\n", temp->var, \
-                temp->equals,temp->nail,temp->value,temp->nail);
-	    	temp = temp->next;
+	    	if (tmp->value)
+	    		printf("declare -x %s%c%c%s%c\n", tmp->var, \
+	                tmp->equals,tmp->nail,tmp->value,tmp->nail);
+	        else
+	        	printf("declare -x %s\n", tmp->var);
+	    	tmp = tmp->next;
         }
     }
     else

@@ -19,7 +19,7 @@ LIBFT_OBJ := libft/obj
 # Source files
 MAIN_SRCS := main.c
 PARSE_SRCS := parse.c token.c checks.c helpers.c lexer.c tokenizer.c extract.c helpers1.c cmd.c convert.c assign_cmd.c expansions.c
-EXECUTE_SRCS := cmd_exit.c lstfnc.c startshell.c cmd_export_env.c pipe_utils.c utils.c builtin.c cmd_unset.c start_exe.c utils2.c heredoc.c
+EXECUTE_SRCS := cmd_exit.c lstfnc.c startshell.c cmd_export_env.c pipe_utils.c utils.c builtin.c cmd_unset.c start_exe.c utils2.c heredoc.c free.c
 
 # Add directory prefixes
 MAIN_SRCS := $(addprefix $(MAIN_DIR)/, $(MAIN_SRCS))
@@ -62,7 +62,7 @@ re: fclean all
 
 # Valgrind rule that logs entire interactive session to a file
 valgrind:
-	@echo "Minishell valgrind modunda başlatılıyor..."
+	@echo "Minishell initializing on valgrind mode..."
 	script -q -c "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell" valgrind_log.txt
 
 .PHONY: all clean fclean re valgrind
