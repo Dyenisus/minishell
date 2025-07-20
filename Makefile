@@ -63,6 +63,6 @@ re: fclean all
 # Valgrind rule that logs entire interactive session to a file
 valgrind:
 	@echo "Minishell initializing on valgrind mode..."
-	script -q -c "valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./minishell" valgrind_log.txt
+	script -q -c "valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp --track-origins=yes ./minishell" valgrind_log.txt
 
 .PHONY: all clean fclean re valgrind
