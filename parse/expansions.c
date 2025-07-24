@@ -6,7 +6,7 @@
 /*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 14:12:53 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/07/20 14:32:01 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/07/24 09:38:44 by yesoytur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*dollar_expansion(char *input, int *i, int start)
 	value = getenv(name);
 	free(name);
 	if (!value)
-		return (ft_strdup(""));
+		return (ft_substr(input, start, *i - start));
 	return (ft_strdup(value));
 }
 
