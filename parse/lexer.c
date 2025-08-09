@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yesoytur <yesoytur@student.42istanbul.c    +#+  +:+       +#+        */
+/*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 22:03:40 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/06/27 17:01:24 by yesoytur         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:23 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	last_error_message(t_token *curr)
 		print_syntax_error("newline", 2);
 }
 
-// Checks if the type order is correct
 static int	type_order_check(t_token *head)
 {
 	t_token	*curr;
@@ -52,7 +51,6 @@ static int	type_order_check(t_token *head)
 	return (1);
 }
 
-// Gets tokens type based on the value
 static t_token_type	get_token_type(const char *str)
 {
 	if (ft_iseq(str, "|") && ft_strlen(str) == 1)
@@ -71,7 +69,6 @@ static t_token_type	get_token_type(const char *str)
 		return (T_UNKNOWN);
 }
 
-// Lexes all tokens (assigns their type)
 int	lexer(t_token *tokens)
 {
 	t_token	*temp;

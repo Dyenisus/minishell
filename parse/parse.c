@@ -6,19 +6,18 @@
 /*   By: skaynar <skaynar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 22:39:38 by yesoytur          #+#    #+#             */
-/*   Updated: 2025/07/22 12:43:08 by skaynar          ###   ########.fr       */
+/*   Updated: 2025/08/04 16:14:25 by skaynar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Parent Process for parsing
-t_cmd	*parse(char *input)
+t_cmd	*parse(t_shell *shell)
 {
 	t_token	*token_head;
 	t_cmd	*cmd_head;
 
-	token_head = tokenizer(input);
+	token_head = tokenizer(shell);
 	if (!token_head)
 		return (NULL);
 	if (!lexer(token_head))
